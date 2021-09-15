@@ -74,7 +74,7 @@ public class Gambling {
 		}
 
 	}
-	public void returnsPerMonthWithMinMaxDays() {
+	public boolean returnsPerMonthWithMinMaxDays() {
 
 		int totalAmount = 0,noOfMatches=0,maxAmountWon = 0,maxAmountLost = 0;
 		List<Integer> luckiestDays = new ArrayList<Integer>();
@@ -122,13 +122,27 @@ public class Gambling {
 		for(int i=0;i<unluckiestDays.size();i++) {
 			System.out.print(unluckiestDays.get(i)+" ");
 		}
+		if(totalAmount>0) {
+			return true;
+			} else {
+				return false;
+			}
+	}
+	public void playNextMonth(boolean decision) {
+		if (decision == true) {
+			System.out.println("\n\nPlay next month!");
+		} else {
+			System.out.println("\n\nStop Gambling!");
+		}
 	}
 	public static void main(String[] args) {
 		System.out.println("Welcome to Gambling Simulation!");
 		Gambling gambler = new Gambling();
 		System.out.println("Stake:" + gambler.STAKE);
 		System.out.println("Per day betting price:" + gambler.DAY_BETTING_PRICE);
-		gambler.returnsPerMonthWithMinMaxDays();
+		boolean decision = gambler.returnsPerMonthWithMinMaxDays();
+		gambler.playNextMonth(decision);
 
 	}
 }
+
