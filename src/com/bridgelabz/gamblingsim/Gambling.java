@@ -2,6 +2,7 @@ package com.bridgelabz.gamblingsim;
 
 public class Gambling {
 	public static final int STAKE = 100;
+	public static final int MAXIMUM_MATCHES_PER_DAY = 1000;
 	public static int GAMBLER_STAKE = 100;
 	public static int UPPER_LIMIT = GAMBLER_STAKE + (GAMBLER_STAKE*50)/100;
 	public static int LOWER_LIMIT = GAMBLER_STAKE - (GAMBLER_STAKE*50)/100;
@@ -47,6 +48,29 @@ public class Gambling {
 		System.out.println("Returns: "+(winningAmount-lostAmount));
 
 
+	}
+	public void returnsPerMonth() {
+
+		int totalAmount = 0, lostAmount = 0,noOfMatches=0;
+		for (int i = 0; i < 30; i++) {
+			GAMBLER_STAKE = 100;
+			noOfMatches=0;
+			while (!this.resignStake() && noOfMatches != MAXIMUM_MATCHES_PER_DAY) {
+				noOfMatches++;
+			}
+			int amountAfterPlay = (GAMBLER_STAKE-STAKE);
+			totalAmount += amountAfterPlay;
+			if(amountAfterPlay>0) {
+				System.out.println("Day "+(i+1)+": PROFIT \t- "+amountAfterPlay);
+				} else {
+					System.out.println("Day "+(i+1)+": LOSS \t- "+Math.abs(amountAfterPlay));
+				}
+		}
+		if(totalAmount>0) {
+		System.out.println("Net Gain (per month): $"+totalAmount);
+		} else {
+			System.out.println("Net Loss (per month): $"+Math.abs(totalAmount));
+		}
 	}
 
 	public static void main(String[] args) {
